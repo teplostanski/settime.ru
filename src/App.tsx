@@ -347,7 +347,7 @@ const getRoundedTimeInWords = (): string => {
     return formatTimeInWords(hours, minutes);
   }
 
-  return `~ ${formatTimeInWords(hours, minutes - remainder)}`;
+  return `примерно ${formatTimeInWords(hours, minutes - remainder)}`;
 };
 
 console.log(getRoundedTimeInWords());
