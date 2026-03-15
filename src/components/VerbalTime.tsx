@@ -1,0 +1,47 @@
+import { useEffect, useState } from 'react';
+import { padZero } from '../shared/utils';
+import { VERBAL_TIME_MAP } from '../shared/constants';
+
+const currentTime = new Date(Date.now());
+
+
+
+console.log(
+  `${padZero(currentTime.getHours())}:${padZero(currentTime.getMinutes())}:${padZero(currentTime.getSeconds())}`,
+);
+
+const formatVerbalTime = (hours: number, minutes: number): string => {
+  const timeKey =
+    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` as keyof typeof VERBAL_TIME_MAP;
+  return VERBAL_TIME_MAP[timeKey] || undefined;
+};
+
+const getRoundedVerbalTime = (): string => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const remainder = minutes % 5;
+
+  if (remainder === 0) {
+    return formatVerbalTime(hours, minutes);
+  }
+
+  return `примерно ${formatVerbalTime(hours, minutes - remainder)}`;
+};
+
+console.log(getRoundedVerbalTime());
+
+export function VerbalTime() {
+  const [timeWord, setTimeWord] = useState(getRoundedVerbalTime());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTimeWord(getRoundedVerbalTime()), 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+      <div className='verbal-time'>{timeWord}</div>
+  );
+}

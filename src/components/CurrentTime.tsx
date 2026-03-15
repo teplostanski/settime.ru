@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-
-const padZero = (unit: number) => {
-  if (unit < 10) {
-    return `0${unit}`;
-  }
-
-  return String(unit);
-};
+import { padZero } from '../shared/utils';
 
 export function CurrentTime() {
   const [currentTime, setCurrentTime] = useState(new Date());
