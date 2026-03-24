@@ -1,0 +1,146 @@
+/* HH : MM : SS — flex на всю ширину; 0.14em между цифрами в паре и между парой и «:»;
+   лишняя ширина делится на три .segment (без «ушей» у всей строки) */
+.time {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  font-family: 'GeistMono', monospace;
+  font-weight: 100;
+  /* Верх clamp ограничиваем 100cqw/7 ≈ «6 цифр + зазоры» — иначе min-content ряда шире карточки на узком экране */
+  font-size: clamp(1.35rem, 1.42rem + 8.5cqw, min(8rem, calc(100cqw / 8)));
+  line-height: 1;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.14em;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.segment {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.14em;
+}
+
+.digitWrapper {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 1em;
+  max-width: 100%;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 0.08em;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.digit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  will-change: transform, opacity, filter;
+}
+
+.digitExit {
+  animation: digit-fall-out 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.digitEnter {
+  animation: digit-fall-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.sep {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-self: center;
+  padding: 0 0.02em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1;
+  animation: sep-pulse 1s ease-in-out infinite;
+  font-family: 'GeistMono', monospace;
+}
+
+@keyframes digit-fall-out {
+  0% {
+    top: 0;
+    filter: blur(1px);
+    opacity: 1;
+  }
+  50% {
+    filter: blur(1px);
+  }
+  100% {
+    top: 1em;
+    filter: blur(0);
+    opacity: 0;
+  }
+}
+
+@keyframes digit-fall-in {
+  0% {
+    top: -1em;
+    filter: blur(1px);
+    opacity: 0;
+  }
+  50% {
+    filter: blur(1px);
+  }
+  70% {
+    top: 0.04em;
+    opacity: 1;
+    filter: blur(0);
+  }
+  85% {
+    top: 0.02em;
+  }
+  100% {
+    top: 0;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sep-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@container clock-card (min-width: 22rem) {
+  .digitWrapper {
+    border-radius: 0.1em;
+  }
+}
+
+@container clock-card (min-width: 32rem) {
+  .digitWrapper {
+    border-radius: 0.12em;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .digitWrapper {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .sep {
+    color: rgba(0, 0, 0, 0.45);
+  }
+}

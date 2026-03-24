@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "geist": "^1.7.0",
+    "nanoid": "^5.1.11",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

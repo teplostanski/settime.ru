@@ -1,28 +1,102 @@
+/* Mobile-first; clock-card = полоса карточки (ширина до min(42rem, 100%)), cqw масштабируются с вьюпортом */
 #root {
-  max-width: 1280px;
+  box-sizing: border-box;
+  /* Иначе flex-ребёнок body с min-width:auto не сужается ниже min-content часов → вылез за padding */
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: max(0.75rem, env(safe-area-inset-top))
+    max(0.75rem, env(safe-area-inset-right))
+    max(0.75rem, env(safe-area-inset-bottom))
+    max(0.75rem, env(safe-area-inset-left));
   text-align: center;
 }
 
-.time {
-  font-family: 'GeistMono', monospace;
-  font-weight: 100;
-  font-size: 88px;
+@media (min-width: 480px) {
+  #root {
+    padding: max(1rem, env(safe-area-inset-top))
+      max(1rem, env(safe-area-inset-right))
+      max(1rem, env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-left));
+  }
+}
+
+@media (min-width: 768px) {
+  #root {
+    max-width: 1280px;
+    padding: max(1.5rem, env(safe-area-inset-top))
+      max(2rem, env(safe-area-inset-right))
+      max(2rem, env(safe-area-inset-bottom))
+      max(2rem, env(safe-area-inset-left));
+  }
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  box-sizing: border-box;
+  display: block;
+  min-width: 0;
+  width: min(42rem, 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 0.75rem 1rem;
   border: 1px solid rgb(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  text-align: left;
+}
+
+@media (min-width: 480px) {
+  .container {
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 1rem 1.5rem;
+  }
+}
+
+.container-inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
+  min-width: 0;
+  container: clock-card / inline-size;
+}
+
+.clock-row {
+  width: 100%;
+  min-width: 0;
+}
+
+.clock-anchor {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  line-height: 0;
 }
 
 .verbal-time {
-  font-size: 1.4rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 0.65em;
+  font-size: clamp(0.75rem, 0.35rem + 3.8cqw, 1.15rem);
   font-weight: 200;
-  margin-bottom: 1em;
-  margin-top: 0.5rem;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+@container clock-card (min-width: 28rem) {
+  .verbal-time {
+    margin-bottom: 1em;
+    margin-top: 0.35rem;
+  }
 }
