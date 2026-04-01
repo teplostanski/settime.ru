@@ -40,9 +40,15 @@
   max-width: 100%;
   margin-inline: auto;
   padding: 0.75rem 1rem;
-  border: 1px solid rgb(255, 255, 255, 0.1);
+  border: 1px solid rgb(255, 255, 255, 0.06);
   border-radius: 0.75rem;
   text-align: left;
+  background: rgb(255, 255, 255, 0.015);
+  backdrop-filter: blur(10px) saturate(1.02);
+  -webkit-backdrop-filter: blur(10px) saturate(1.02);
+  box-shadow:
+    0 4px 20px rgb(0, 0, 0, 0.04),
+    inset 0 1px 0 rgb(255, 255, 255, 0.04);
 }
 
 @media (min-width: 480px) {

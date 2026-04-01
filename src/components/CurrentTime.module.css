@@ -37,7 +37,7 @@
   overflow: hidden;
   border-radius: 0.08em;
   text-align: center;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .digit {
@@ -132,15 +132,5 @@
 @container clock-card (min-width: 32rem) {
   .digitWrapper {
     border-radius: 0.12em;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .digitWrapper {
-    background: rgba(0, 0, 0, 0.04);
-  }
-
-  .sep {
-    color: rgba(0, 0, 0, 0.45);
   }
 }
