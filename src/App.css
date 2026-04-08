@@ -50,16 +50,30 @@
     inset 0 1px 0 rgb(255, 255, 255, 0.06);
 }
 
-/* Размытие фона — только если движок умеет (Chromium, Safari, актуальный Firefox) */
+/*
+ * Размытие: общие стили в одном @supports, сами filter — в отдельных блоках.
+ * Иначе LightningCSS (prod Vite) схлопывает пару backdrop / -webkit-backdrop и выкидывает
+ * стандартное свойство → в Firefox и части Chromium в проде блюра нет.
+ */
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .container {
     border-color: rgb(255, 255, 255, 0.06);
     background: rgb(255, 255, 255, 0.015);
-    backdrop-filter: blur(10px) saturate(1.02);
-    -webkit-backdrop-filter: blur(10px) saturate(1.02);
     box-shadow:
       0 4px 20px rgb(0, 0, 0, 0.04),
       inset 0 1px 0 rgb(255, 255, 255, 0.04);
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .container {
+    backdrop-filter: blur(10px) saturate(1.02);
+  }
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .container {
+    -webkit-backdrop-filter: blur(10px) saturate(1.02);
   }
 }
 
