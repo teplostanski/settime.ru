@@ -3,6 +3,7 @@ import { VerbalTime } from './components/VerbalTime';
 import './App.css';
 
 export function App() {
+  console.log('App');
   return (
     <div className="container">
       <div className="container-inner">
