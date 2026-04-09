@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -7,6 +8,40 @@ export default defineConfig({
     react({
       babel: {
         plugins: [['babel-plugin-react-compiler']],
+      },
+    }),
+    /* Кэш статики (в т.ч. фон bg-*.jpg) через Service Worker — актуально для GitHub Pages без своих Cache-Control */
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      manifest: {
+        name: 'settime.ru',
+        short_name: 'settime',
+        theme_color: '#242424',
+        background_color: '#242424',
+        display: 'standalone',
+        icons: [
+          {
+            src: 'android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: 'index.html',
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg,webp,webmanifest}',
+        ],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      },
+      devOptions: {
+        enabled: false,
       },
     }),
   ],

@@ -14,7 +14,7 @@
       rgba(18, 18, 18, 0.3),
       rgba(18, 18, 18, 0.3)
     ),
-    url('../bg.jpg');
+    url('/bg.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
