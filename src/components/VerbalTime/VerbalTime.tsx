@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { padZero } from '../shared/utils';
-import { VERBAL_TIME_MAP } from '../shared/constants';
+import { padZero } from '../../shared/utils';
+import { VERBAL_TIME_MAP } from '../../shared/constants';
+import styles from './VerbalTime.module.css';
 
 const currentTime = new Date(Date.now());
-
-
 
 console.log(
   `${padZero(currentTime.getHours())}:${padZero(currentTime.getMinutes())}:${padZero(currentTime.getSeconds())}`,
@@ -31,7 +30,7 @@ const getRoundedVerbalTime = (): string => {
 
 console.log(getRoundedVerbalTime());
 
-export function VerbalTime() {
+const VerbalTime = () => {
   const [timeWord, setTimeWord] = useState(getRoundedVerbalTime());
 
   useEffect(() => {
@@ -41,7 +40,7 @@ export function VerbalTime() {
     };
   }, []);
 
-  return (
-      <div className='verbal-time'>{timeWord}</div>
-  );
-}
+  return <div className={styles.verbalTime}>{timeWord}</div>;
+};
+
+export { VerbalTime };

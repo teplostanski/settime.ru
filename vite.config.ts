@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import readableClassnames from 'vite-plugin-readable-classnames'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
         plugins: [['babel-plugin-react-compiler']],
       },
     }),
+    readableClassnames(),
     /* Кэш статики (в т.ч. фон bg-*.jpg) через Service Worker — актуально для GitHub Pages без своих Cache-Control */
     VitePWA({
       registerType: 'autoUpdate',

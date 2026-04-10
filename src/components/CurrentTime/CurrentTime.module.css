@@ -1,0 +1,59 @@
+/* Схлопывает лишний вертикальный зазор под flex-рядом; ширина как у карточки */
+.root {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  line-height: 0;
+}
+
+/* HH : MM : SS — flex на всю ширину; 0.14em между цифрами в паре и между парой и «:»;
+   лишняя ширина делится на три .segment (без «ушей» у всей строки) */
+.time {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  font-family: 'GeistMono', monospace;
+  font-weight: 100;
+  /* Верх clamp ограничиваем 100cqw/7 ≈ «6 цифр + зазоры» — иначе min-content ряда шире карточки на узком экране */
+  font-size: clamp(1.35rem, 1.42rem + 8.5cqw, min(8rem, calc(100cqw / 8)));
+  line-height: 1;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.14em;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.segment {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.14em;
+}
+
+.sep {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-self: center;
+  padding: 0 0.02em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1;
+  animation: sep-pulse 1s ease-in-out infinite;
+  font-family: 'GeistMono', monospace;
+}
+
+@keyframes sep-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}

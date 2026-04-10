@@ -1,13 +1,11 @@
 import {
-  useEffect,
   useLayoutEffect,
   useState,
   useTransition,
 } from 'react';
 import cn from 'classnames';
 import { nanoid } from 'nanoid';
-import { padZero } from '../shared/utils';
-import styles from './CurrentTime.module.css';
+import styles from './DigitSlot.module.css';
 
 const ANIMATION_DURATION = 350;
 
@@ -22,7 +20,7 @@ interface DigitSlotProps {
   value: string;
 }
 
-function DigitSlot({ value }: DigitSlotProps) {
+const DigitSlot = ({ value }: DigitSlotProps) => {
   const [digits, setDigits] = useState<DigitItem[]>([
     { value, isExiting: false, isEntering: false, id: nanoid() },
   ]);
@@ -72,38 +70,6 @@ function DigitSlot({ value }: DigitSlotProps) {
       ))}
     </span>
   );
-}
+};
 
-export function CurrentTime() {
-  const [currentTime, setCurrentTime] = useState(() => new Date());
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  const hours = padZero(currentTime.getHours());
-  const minutes = padZero(currentTime.getMinutes());
-  const seconds = padZero(currentTime.getSeconds());
-
-  return (
-    <span className={styles.time} role="timer" aria-live="polite">
-      <span className={styles.segment}>
-        <DigitSlot value={hours[0]} />
-        <DigitSlot value={hours[1]} />
-      </span>
-      <span className={styles.sep}>:</span>
-      <span className={styles.segment}>
-        <DigitSlot value={minutes[0]} />
-        <DigitSlot value={minutes[1]} />
-      </span>
-      <span className={styles.sep}>:</span>
-      <span className={styles.segment}>
-        <DigitSlot value={seconds[0]} />
-        <DigitSlot value={seconds[1]} />
-      </span>
-    </span>
-  );
-}
+export { DigitSlot, type DigitSlotProps };

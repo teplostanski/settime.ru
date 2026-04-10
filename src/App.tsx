@@ -1,19 +1,12 @@
-import { CurrentTime } from './components/CurrentTime';
-import { VerbalTime } from './components/VerbalTime';
+import { Clock } from './components/Clock';
 import './App.css';
 
-export function App() {
-  console.log('App');
+const App = () => {
   return (
     <div className="container">
-      <div className="container-inner">
-        <div className="clock-row">
-          <div className="clock-anchor">
-            <CurrentTime />
-          </div>
-        </div>
-        <VerbalTime />
-      </div>
+      <Clock />
     </div>
   );
-}
+};
+
+export { App };
