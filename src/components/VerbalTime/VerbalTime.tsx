@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { padZero } from '../../shared/utils';
-import { VERBAL_TIME_MAP } from '../../shared/constants';
+import { verbalPhraseByTimeKey } from '../../shared/constants';
 import styles from './VerbalTime.module.css';
 
 const currentTime = new Date(Date.now());
@@ -11,21 +11,21 @@ console.log(
 
 const formatVerbalTime = (hours: number, minutes: number): string => {
   const timeKey =
-    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` as keyof typeof VERBAL_TIME_MAP;
-  return VERBAL_TIME_MAP[timeKey] || undefined;
+    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` as keyof typeof verbalPhraseByTimeKey;
+  return verbalPhraseByTimeKey[timeKey] || undefined;
 };
 
 const getRoundedVerbalTime = (): string => {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
-  const remainder = minutes % 5;
+  //const remainder = minutes % 5;
 
-  if (remainder === 0) {
+  //if (remainder === 0) {
     return formatVerbalTime(hours, minutes);
-  }
+  //}
 
-  return `примерно ${formatVerbalTime(hours, minutes - remainder)}`;
+  //return `примерно ${formatVerbalTime(hours, minutes - remainder)}`;
 };
 
 console.log(getRoundedVerbalTime());
