@@ -19,13 +19,8 @@ const getRoundedVerbalTime = (): string => {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
-  //const remainder = minutes % 5;
 
-  //if (remainder === 0) {
-    return formatVerbalTime(hours, minutes);
-  //}
-
-  //return `примерно ${formatVerbalTime(hours, minutes - remainder)}`;
+  return formatVerbalTime(hours, minutes);
 };
 
 console.log(getRoundedVerbalTime());

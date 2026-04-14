@@ -3,7 +3,7 @@
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  margin: 0 0 0.65em;
+  margin: 0 0 1em;
   font-size: clamp(0.75rem, 0.35rem + 3.8cqw, 1.15rem);
   font-weight: 200;
   line-height: 1.35;
@@ -13,7 +13,6 @@
 
 @container clock-card (min-width: 28rem) {
   .verbalTime {
-    margin-bottom: 1em;
-    margin-top: 0.35rem;
+    margin: 0 0 2em;
   }
 }
