@@ -25,7 +25,7 @@ const getRoundedVerbalTime = (): string => {
 
 console.log(getRoundedVerbalTime());
 
-const VerbalTime = () => {
+const VerbalTime = ({text}: {text?: string}) => {
   const [timeWord, setTimeWord] = useState(getRoundedVerbalTime());
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const VerbalTime = () => {
     };
   }, []);
 
-  return <div className={styles.verbalTime}>{timeWord}</div>;
+  return <div className={styles.verbalTime}>{`${timeWord} ${text || ''}`}</div>;
 };
 
 export { VerbalTime };

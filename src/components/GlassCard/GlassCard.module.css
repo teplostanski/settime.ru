@@ -1,0 +1,77 @@
+/*
+ * Размытие: общие стили в одном @supports, filter отдельно — иначе LightningCSS в проде схлопывает пару backdrop.
+ * card-shell (cqHost) — ширина ячейки сетки: cqi в padding article без цикла.
+ * clock-card (cardCq) — ширина контентной колонки внутри padding: cqw у часов/слова совпадает с полосой цифр.
+ */
+.cqHost {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  container: card-shell / inline-size;
+}
+
+.root {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-block: clamp(0.75rem, 0.55rem + 2.5cqi, 1rem);
+  padding-inline: clamp(0.75rem, 0.5rem + 4cqi, 1.5rem);
+  border: 1px solid rgb(255, 255, 255, 0.09);
+  border-radius: clamp(0.75rem, 0.6rem + 2cqi, 1rem);
+  text-align: left;
+  background: rgb(255, 255, 255, 0.085);
+  box-shadow:
+    0 4px 24px rgb(0, 0, 0, 0.1),
+    inset 0 1px 0 rgb(255, 255, 255, 0.06);
+}
+
+.cardCq {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  gap: clamp(0.75rem, 0.5rem + 2.5cqi, 2.25rem);
+  container: clock-card / inline-size;
+}
+
+.header,
+.body {
+  min-width: 0;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .root {
+    border-color: rgb(255, 255, 255, 0.06);
+    background: rgb(255, 255, 255, 0.022);
+    box-shadow:
+      0 4px 20px rgb(0, 0, 0, 0.04),
+      inset 0 1px 0 rgb(255, 255, 255, 0.04);
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .root {
+    backdrop-filter: blur(6px) saturate(1.02);
+  }
+}
+
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .root {
+    -webkit-backdrop-filter: blur(6px) saturate(1.02);
+    backdrop-filter: blur(6px) saturate(1.02);
+  }
+}

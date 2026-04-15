@@ -1,14 +1,14 @@
 .digitWrapper {
   position: relative;
   box-sizing: border-box;
+  background: #ffffff04;
   flex: 0 0 auto;
   width: 1em;
-  max-width: 100%;
+  min-width: 1em;
   height: 1em;
   overflow: hidden;
   border-radius: 0.08em;
   text-align: center;
-  background: rgba(255, 255, 255, 0.01);
 }
 
 .digit {
@@ -72,7 +72,7 @@
   }
 }
 
-/* Контейнер clock-card задаётся на Clock (Clock.module.css) */
+/* @container clock-card — inline-size контентной колонки (GlassCard .cardCq) */
 @container clock-card (min-width: 22rem) {
   .digitWrapper {
     border-radius: 0.1em;

@@ -1,93 +1,106 @@
-/* Mobile-first; .container — полоса карточки до min(42rem, 100%); clock-card и cqw — в Clock */
+/*
+ * #root — страница; main — полоса .appShell.
+ * Сетка карточек: задаёшь число «атомных» колонок (1fr …), в каждой строке areas — ровно столько имён.
+ * Две соседние ячейки с одним именем = один элемент на 2 колонки (2/3 ширины при 3 колонках).
+ */
 #root {
   box-sizing: border-box;
-  /* Иначе flex-ребёнок body с min-width:auto не сужается ниже min-content часов → вылез за padding */
-  display: flex;
-  justify-content: center;
+  display: grid;
+  min-height: 100dvh;
   min-width: 0;
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: max(0.75rem, env(safe-area-inset-top))
-    max(0.75rem, env(safe-area-inset-right))
-    max(0.75rem, env(safe-area-inset-bottom))
-    max(0.75rem, env(safe-area-inset-left));
+  margin: 0;
+  padding-block: max(
+      env(safe-area-inset-top),
+      clamp(0.75rem, 0.35rem + 2.2vmin, 2rem)
+    )
+    max(env(safe-area-inset-bottom), clamp(0.75rem, 0.35rem + 2.2vmin, 2rem));
+  padding-inline: max(
+      env(safe-area-inset-left),
+      clamp(0.75rem, 0.45rem + 2.8vmin, 2rem)
+    )
+    max(env(safe-area-inset-right), clamp(0.75rem, 0.45rem + 2.8vmin, 2rem));
   text-align: center;
+
+  grid-template-areas: 'main';
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: stretch;
 }
 
-@media (min-width: 480px) {
-  #root {
-    padding: max(1rem, env(safe-area-inset-top))
-      max(1rem, env(safe-area-inset-right))
-      max(1rem, env(safe-area-inset-bottom))
-      max(1rem, env(safe-area-inset-left));
-  }
-}
-
-@media (min-width: 768px) {
-  #root {
-    max-width: 1280px;
-    padding: max(1.5rem, env(safe-area-inset-top))
-      max(2rem, env(safe-area-inset-right))
-      max(2rem, env(safe-area-inset-bottom))
-      max(2rem, env(safe-area-inset-left));
-  }
-}
-
-.container {
+.appShell {
   box-sizing: border-box;
-  display: block;
+  grid-area: main;
+  width: 100%;
+  max-width: min(42rem, 100%);
   min-width: 0;
-  width: min(42rem, 100%);
-  max-width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgb(255, 255, 255, 0.09);
-  border-radius: 0.75rem;
-  text-align: left;
-  /* Без backdrop-filter: чуть плотнее подложка, чтобы карточка читалась на фото */
-  background: rgb(255, 255, 255, 0.085);
-  box-shadow:
-    0 4px 24px rgb(0, 0, 0, 0.1),
-    inset 0 1px 0 rgb(255, 255, 255, 0.06);
+  justify-self: center;
+  container: app-shell / inline-size;
+
+  display: grid;
+  grid-template-areas: 'grid';
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
 }
 
-/*
- * Размытие: общие стили в одном @supports, сами filter — в отдельных блоках.
- * Иначе LightningCSS (prod Vite) схлопывает пару backdrop / -webkit-backdrop и выкидывает
- * стандартное свойство → в Firefox и части Chromium в проде блюра нет.
- */
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .container {
-    border-color: rgb(255, 255, 255, 0.06);
-    background: rgb(255, 255, 255, 0.022);
-    box-shadow:
-      0 4px 20px rgb(0, 0, 0, 0.04),
-      inset 0 1px 0 rgb(255, 255, 255, 0.04);
-  }
+.appShell__grid {
+  grid-area: grid;
+  box-sizing: border-box;
+  display: grid;
+  min-width: 0;
+  gap: clamp(0.75rem, 0.5rem + 2vw, 1.5rem);
+  align-items: stretch;
+
+  /* 3 колонки: ряд1 — A на 2, B на 1; ряд2 — C на 1, D на 2 */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    'card-e card-e card-e'
+    'card-a card-a card-b'
+    'card-c card-d card-d';
+  grid-template-rows: auto auto;
 }
 
-@supports (backdrop-filter: blur(1px)) {
-  .container {
-    backdrop-filter: blur(6px) saturate(1.02);
-  }
+.appShell__cardA,
+.appShell__cardB,
+.appShell__cardC,
+.appShell__cardD,
+.appShell__cardE {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  align-self: stretch;
 }
 
-@supports (-webkit-backdrop-filter: blur(1px)) {
-  .container {
-    -webkit-backdrop-filter: blur(6px) saturate(1.02);
-    backdrop-filter: blur(6px) saturate(1.02);
-  }
+.appShell__cardA {
+  grid-area: card-a;
 }
 
-@media (min-width: 480px) {
-  .container {
-    border-radius: 1rem;
-    padding: 1rem 1.25rem;
-  }
+.appShell__cardB {
+  grid-area: card-b;
 }
 
-@media (min-width: 768px) {
-  .container {
-    padding: 1rem 1.5rem;
+.appShell__cardC {
+  grid-area: card-c;
+}
+
+.appShell__cardD {
+  grid-area: card-d;
+}
+
+.appShell__cardE {
+  grid-area: card-e;
+}
+
+@container app-shell (max-width: 36rem) {
+  .appShell__grid {
+    grid-template-areas:
+      'card-a'
+      'card-b'
+      'card-c'
+      'card-d'
+      'card-e';
+    grid-template-columns: 1fr;
   }
 }
