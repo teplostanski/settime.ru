@@ -19,8 +19,8 @@ export default defineConfig({
       manifest: {
         name: 'settime.ru',
         short_name: 'settime',
-        theme_color: '#242424',
-        background_color: '#242424',
+        theme_color: '#16151a',
+        background_color: '#16151a',
         display: 'standalone',
         icons: [
           {
