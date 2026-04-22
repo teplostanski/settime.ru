@@ -1,41 +1,55 @@
-import { useEffect, useState } from 'react';
-import { padZero } from '../../shared/utils';
+import { memo, useEffect, useState } from 'react';
 import { verbalPhraseByTimeKey } from '../../shared/constants';
 import styles from './VerbalTime.module.css';
 
-const currentTime = new Date(Date.now());
-
-console.log(
-  `${padZero(currentTime.getHours())}:${padZero(currentTime.getMinutes())}:${padZero(currentTime.getSeconds())}`,
-);
-
-const formatVerbalTime = (hours: number, minutes: number): string => {
+const formatVerbalTime = (hours: number, minutes: number): string | undefined => {
   const timeKey =
     `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` as keyof typeof verbalPhraseByTimeKey;
-  return verbalPhraseByTimeKey[timeKey] || undefined;
+  return verbalPhraseByTimeKey[timeKey];
 };
 
-const getRoundedVerbalTime = (): string => {
+const getVerbalPhrase = (): string => {
   const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  return formatVerbalTime(hours, minutes);
+  return formatVerbalTime(now.getHours(), now.getMinutes()) ?? '';
 };
 
-console.log(getRoundedVerbalTime());
-
-const VerbalTime = ({text}: {text?: string}) => {
-  const [timeWord, setTimeWord] = useState(getRoundedVerbalTime());
+const VerbalTimeView = () => {
+  const [phrase, setPhrase] = useState(getVerbalPhrase);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeWord(getRoundedVerbalTime()), 1000);
+    const sync = () => {
+      setPhrase(getVerbalPhrase());
+    };
+
+    const msToNextMinute = () => {
+      const t = new Date();
+      return (60 - t.getSeconds()) * 1000 - t.getMilliseconds();
+    };
+
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+
+    const timeoutId = setTimeout(() => {
+      sync();
+      intervalId = setInterval(sync, 60_000);
+    }, msToNextMinute());
+
     return () => {
-      clearInterval(timer);
+      clearTimeout(timeoutId);
+      if (intervalId !== undefined) {
+        clearInterval(intervalId);
+      }
     };
   }, []);
 
-  return <div className={styles.verbalTime}>{`${timeWord} ${text || ''}`}</div>;
+  return (
+    <div className={styles.verbalTime}>
+      {phrase}
+    </div>
+  );
 };
+
+const VerbalTime = memo(VerbalTimeView);
+
+VerbalTime.displayName = 'VerbalTime';
 
 export { VerbalTime };

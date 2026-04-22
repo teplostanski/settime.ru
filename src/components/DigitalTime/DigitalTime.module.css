@@ -5,6 +5,7 @@
   min-width: 0;
   min-height: min-content;
   line-height: 0;
+  padding: 0.25rem 0;
 }
 
 .time {

@@ -1,4 +1,5 @@
 import {
+  memo,
   useLayoutEffect,
   useState,
   useTransition,
@@ -20,7 +21,7 @@ interface DigitSlotProps {
   value: string;
 }
 
-const DigitSlot = ({ value }: DigitSlotProps) => {
+const DigitSlotView = ({ value }: DigitSlotProps) => {
   const [digits, setDigits] = useState<DigitItem[]>([
     { value, isExiting: false, isEntering: false, id: nanoid() },
   ]);
@@ -39,11 +40,11 @@ const DigitSlot = ({ value }: DigitSlotProps) => {
       });
     });
 
-    const exitTimer = window.setTimeout(() => {
+    const exitTimer = setTimeout(() => {
       setDigits((prev) => prev.filter((d) => !d.isExiting));
     }, ANIMATION_DURATION);
 
-    const enterTimer = window.setTimeout(() => {
+    const enterTimer = setTimeout(() => {
       setDigits((prev) =>
         prev.map((d) => (d.isEntering ? { ...d, isEntering: false } : d)),
       );
@@ -71,5 +72,9 @@ const DigitSlot = ({ value }: DigitSlotProps) => {
     </span>
   );
 };
+
+const DigitSlot = memo(DigitSlotView);
+
+DigitSlot.displayName = 'DigitSlot';
 
 export { DigitSlot, type DigitSlotProps };

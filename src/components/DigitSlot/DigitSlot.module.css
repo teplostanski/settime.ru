@@ -72,14 +72,14 @@
   }
 }
 
-/* @container clock-card — inline-size контентной колонки (GlassCard .cardCq) */
-@container clock-card (min-width: 22rem) {
+/* @container card-inner — inline-size контентной колонки (Card .inner) */
+@container card-inner (min-width: 22rem) {
   .digitWrapper {
     border-radius: 0.1em;
   }
 }
 
-@container clock-card (min-width: 32rem) {
+@container card-inner (min-width: 32rem) {
   .digitWrapper {
     border-radius: 0.12em;
   }

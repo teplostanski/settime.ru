@@ -36,3 +36,30 @@ body {
   width: 100%;
   font-size: 1rem;
 }
+
+/* #root — страница; main — полоса .appShell (grid-area задаётся в App). */
+#root {
+  box-sizing: border-box;
+  display: grid;
+  min-height: 100dvh;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding-block: max(
+      env(safe-area-inset-top),
+      clamp(0.75rem, 0.35rem + 2.2vmin, 2rem)
+    )
+    max(env(safe-area-inset-bottom), clamp(0.75rem, 0.35rem + 2.2vmin, 2rem));
+  padding-inline: max(
+      env(safe-area-inset-left),
+      clamp(0.75rem, 0.45rem + 2.8vmin, 2rem)
+    )
+    max(env(safe-area-inset-right), clamp(0.75rem, 0.45rem + 2.8vmin, 2rem));
+  text-align: center;
+
+  grid-template-areas: 'main';
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: stretch;
+}
