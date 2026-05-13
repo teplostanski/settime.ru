@@ -44,6 +44,8 @@
   min-width: 0;
   min-height: 0;
   width: 100%;
+  /* Firefox: cqi в gap на том же узле, что объявляет container, может сделать всё свойство gap невалидным — сначала запас без CQ-единиц. */
+  gap: clamp(0.875rem, 0.6rem + 1.5vw, 2rem);
   gap: clamp(
     0.875rem,
     0.875rem + 1.5rem * (100cqi - 17.5rem) / 24.5rem,
