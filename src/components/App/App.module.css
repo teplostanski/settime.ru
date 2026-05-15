@@ -19,22 +19,13 @@
   display: grid;
   min-width: 0;
   gap: clamp(0.75rem, 0.5rem + 2vw, 1.5rem);
-  align-items: stretch;
 
   grid-template-columns: repeat(6, 1fr);
   grid-template-areas:
     'clock clock clock clock clock clock'
-    'date date . . . .';
+    'date date date year-ordinals year-ordinals year-ordinals';
   grid-template-rows: auto auto;
-}
-
-.clockWidget,
-.dateWidget {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-  align-self: stretch;
+  align-items: stretch;
 }
 
 .clockWidget {
@@ -45,11 +36,15 @@
   grid-area: date;
 }
 
+.yearOrdinalsWidget {
+  grid-area: year-ordinals;
+}
+
 @container app (max-width: 36rem) {
   .grid {
     grid-template-areas:
       'clock clock'
-      'date .';
+      'date year-ordinals';
     grid-template-columns: repeat(2, 1fr);
   }
 }

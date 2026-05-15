@@ -4,21 +4,19 @@ import {
   msUntilNextLocalMidnight,
   scheduleAlignedTick,
 } from '../../shared/scheduleAlignedTick';
-import { formatLocaleDate } from '../../shared/utils';
+import { dayjs } from '../../shared/dayjs';
 import { CardHeader } from '../card-header';
 
-type DateCardOuterProps = Record<string, never>;
-
-const dateCardPropsAreEqual = (
-  _prev: Readonly<DateCardOuterProps>,
-  _next: Readonly<DateCardOuterProps>,
-): boolean => {
-  void _prev;
-  void _next;
-  return true;
+type DateCardProps = {
+  className?: string;
 };
 
-const DateCardView = () => {
+const dateCardPropsAreEqual = (
+  prev: Readonly<DateCardProps>,
+  next: Readonly<DateCardProps>,
+): boolean => prev.className === next.className;
+
+const DateCardView = ({ className }: DateCardProps) => {
   const [date, setDate] = useState(() => new Date());
 
   useEffect(
@@ -30,11 +28,12 @@ const DateCardView = () => {
     [],
   );
 
-  const weekday = formatLocaleDate(date, { weekday: 'long' });
-  const dayAndMonth = formatLocaleDate(date, { day: 'numeric', month: 'long' });
+  const currentDate = dayjs(date);
+  const weekday = currentDate.format('dddd');
+  const dayAndMonth = currentDate.format('D MMMM');
 
   return (
-    <Card header={<CardHeader>{weekday}</CardHeader>}>
+    <Card className={className} header={<CardHeader>{weekday}</CardHeader>}>
       <p className="content">{dayAndMonth}</p>
     </Card>
   );
