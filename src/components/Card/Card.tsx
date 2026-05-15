@@ -9,17 +9,15 @@ type CardProps = {
 };
 
 const Card = ({ header, children, className }: CardProps) => {
+  const showHeader = header != null && header !== false;
+
   return (
-    <div className={styles.outer}>
-      <article className={cn(styles.root, className)}>
-        <div className={styles.inner}>
-          {header != null && header !== false ? (
-            <header className={styles.header}>{header}</header>
-          ) : null}
-          <div className={styles.content}>{children}</div>
-        </div>
-      </article>
-    </div>
+    <article className={cn(styles.container, className)}>
+      <div className={styles.inner}>
+        {showHeader && header}
+        <div className={styles.content}>{children}</div>
+      </div>
+    </article>
   );
 };
 

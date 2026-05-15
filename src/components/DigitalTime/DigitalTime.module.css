@@ -1,5 +1,5 @@
 /* line-height: 0 убирает лишнюю высоту под flex-рядом цифр */
-.root {
+.wrapper {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
@@ -8,7 +8,7 @@
   padding: 0.25rem 0;
 }
 
-.time {
+.inner {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
@@ -20,14 +20,14 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  /* Свободная ширина строки уходит в равные промежутки между 5 узлами (без фикс. gap — нет «ушей» внутри сегментов) */
+  /* Свободная ширина строки уходит в равные промежутки между 5 узлами (без фикс. gap — нет «ушей» внутри групп) */
   justify-content: space-between;
   gap: 0;
   font-variant-numeric: tabular-nums;
   user-select: none;
 }
 
-.segment {
+.group {
   box-sizing: border-box;
   flex: 0 0 auto;
   min-width: 0;
@@ -37,18 +37,18 @@
   gap: 0.25em;
 }
 
-.sep {
+.separator {
   box-sizing: border-box;
   flex: 0 0 auto;
   padding: 0 0.02em;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.65);
   line-height: 1;
-  animation: sep-pulse 1s ease-in-out infinite;
+  animation: digital-time-separator-pulse 1s ease-in-out infinite;
   font-family: 'GeistMono', monospace;
 }
 
-@keyframes sep-pulse {
+@keyframes digital-time-separator-pulse {
   0%,
   100% {
     opacity: 1;

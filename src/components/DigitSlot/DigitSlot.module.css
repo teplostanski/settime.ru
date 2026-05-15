@@ -1,4 +1,4 @@
-.digitWrapper {
+.wrapper {
   position: relative;
   box-sizing: border-box;
   background: #ffffff04;
@@ -11,7 +11,7 @@
   text-align: center;
 }
 
-.digit {
+.inner {
   position: absolute;
   left: 0;
   top: 0;
@@ -24,15 +24,15 @@
   will-change: transform, opacity, filter;
 }
 
-.digitExit {
-  animation: digit-fall-out 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+.exiting {
+  animation: digit-slot-out 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
 }
 
-.digitEnter {
-  animation: digit-fall-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+.entering {
+  animation: digit-slot-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
 }
 
-@keyframes digit-fall-out {
+@keyframes digit-slot-out {
   0% {
     top: 0;
     filter: blur(1px);
@@ -48,7 +48,7 @@
   }
 }
 
-@keyframes digit-fall-in {
+@keyframes digit-slot-in {
   0% {
     top: -1em;
     filter: blur(1px);
@@ -72,15 +72,15 @@
   }
 }
 
-/* @container card-inner — inline-size контентной колонки (Card .inner) */
-@container card-inner (min-width: 22rem) {
-  .digitWrapper {
+/* @container card-frame — inline-size карточки (Card article.container) */
+@container card-frame (min-width: 22rem) {
+  .wrapper {
     border-radius: 0.1em;
   }
 }
 
-@container card-inner (min-width: 32rem) {
-  .digitWrapper {
+@container card-frame (min-width: 32rem) {
+  .wrapper {
     border-radius: 0.12em;
   }
 }

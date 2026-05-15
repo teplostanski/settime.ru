@@ -1,15 +1,11 @@
-/*
- * Сетка карточек: задаёшь число «атомных» колонок (1fr …), в каждой строке areas — ровно столько имён.
- * Две соседние ячейки с одним именем = один элемент на 2 колонки (2/3 ширины при 3 колонках).
- */
-.gridContainer {
+.container {
   box-sizing: border-box;
   grid-area: main;
   width: 100%;
   max-width: min(42rem, 100%);
   min-width: 0;
   justify-self: center;
-  container: app-grid-container / inline-size;
+  container: app / inline-size;
 
   display: grid;
   grid-template-areas: 'grid';
@@ -25,11 +21,10 @@
   gap: clamp(0.75rem, 0.5rem + 2vw, 1.5rem);
   align-items: stretch;
 
-  /* 3 колонки: ряд1 — A на 2, B на 1; ряд2 — C на 1, D на 2 */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   grid-template-areas:
-    'clock clock clock clock'
-    'date . . .';
+    'clock clock clock clock clock clock'
+    'date date . . . .';
   grid-template-rows: auto auto;
 }
 
@@ -50,44 +45,11 @@
   grid-area: date;
 }
 
-.dateWidget p {
-  font-size: clamp(
-    1.375rem,
-    1.375rem + 0.1875rem * (100vw - 22.5rem) / 37.5rem,
-    1.75rem
-  );
-  font-weight: 100;
-  margin: 0;
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  line-height: 1.35;
-  text-align: left;
-  overflow-wrap: break-word;
-  letter-spacing: 0.015em;
-}
-
-.dateWidget span {
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  font-size: clamp(
-    1rem,
-    1rem + 0.1875rem * (100vw - 22.5rem) / 37.5rem,
-    1.25rem
-  );
-  font-weight: 200;
-  line-height: 1.35;
-  text-align: left;
-  overflow-wrap: break-word;
-  letter-spacing: 0.015em;
-}
-
-@container app-grid-container (max-width: 36rem) {
+@container app (max-width: 36rem) {
   .grid {
     grid-template-areas:
       'clock clock'
-      'date';
-    grid-template-columns: 1fr 1fr;
+      'date .';
+    grid-template-columns: repeat(2, 1fr);
   }
 }

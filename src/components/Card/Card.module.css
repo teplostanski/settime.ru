@@ -1,20 +1,4 @@
-/*
- * Размытие: общие стили в одном @supports, filter отдельно — иначе LightningCSS в проде схлопывает пару backdrop.
- * card-outer (.outer) — inline-size слота в сетке: cqi в padding у article без цикла с внутренним контейнером.
- * card-inner (.inner) — inline-size контентной колонки внутри padding: cqw у цифр/текста совпадает с полосой слотов.
- */
-.outer {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0;
-  flex: 1 1 auto;
-  min-height: 0;
-  container: card-outer / inline-size;
-}
-
-.root {
+.container {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -23,15 +7,16 @@
   min-width: 0;
   flex: 1 1 auto;
   min-height: 0;
-  padding-block: clamp(0.75rem, 0.55rem + 2.5cqi, 1rem);
-  padding-inline: clamp(0.75rem, 0.5rem + 4cqi, 1.5rem);
+  padding-block: clamp(0.75rem, 0.5rem + 1.2cqi, 1rem);
+  padding-inline: clamp(0.875rem, 0.25rem + 3cqi, 1.5rem);
   border: 1px solid rgb(255, 255, 255, 0.09);
-  border-radius: clamp(0.75rem, 0.6rem + 2cqi, 1rem);
+  border-radius: clamp(1rem, 0.35rem + 3cqi, 1.5rem);
   text-align: left;
-  background: rgb(255, 255, 255, 0.085);
+  background: rgb(255, 255, 255, 0.08);
   box-shadow:
     0 4px 24px rgb(0, 0, 0, 0.1),
     inset 0 1px 0 rgb(255, 255, 255, 0.06);
+  container: card / inline-size;
 }
 
 .inner {
@@ -44,23 +29,19 @@
   min-width: 0;
   min-height: 0;
   width: 100%;
-  /* Firefox: cqi в gap на том же узле, что объявляет container, может сделать всё свойство gap невалидным — сначала запас без CQ-единиц. */
-  gap: clamp(0.875rem, 0.6rem + 1.5vw, 2rem);
-  gap: clamp(
-    0.875rem,
-    0.875rem + 1.5rem * (100cqi - 17.5rem) / 24.5rem,
-    2rem
-  );
-  container: card-inner / inline-size;
+  gap: clamp(1rem, 4.5cqi + 0.15rem, 2rem);
 }
 
-.header,
 .content {
   min-width: 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .root {
+@supports (
+  (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
+) {
+  .container {
     border-color: rgb(255, 255, 255, 0.06);
     background: rgb(255, 255, 255, 0.022);
     box-shadow:
@@ -70,13 +51,13 @@
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  .root {
+  .container {
     backdrop-filter: blur(6px) saturate(1.02);
   }
 }
 
 @supports (-webkit-backdrop-filter: blur(1px)) {
-  .root {
+  .container {
     -webkit-backdrop-filter: blur(6px) saturate(1.02);
     backdrop-filter: blur(6px) saturate(1.02);
   }

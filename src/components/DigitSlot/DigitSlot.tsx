@@ -57,13 +57,13 @@ const DigitSlotView = ({ value }: DigitSlotProps) => {
   }, [value]);
 
   return (
-    <span className={styles.digitWrapper}>
+    <span className={styles.wrapper}>
       {digits.map((digit) => (
         <span
           key={digit.id}
-          className={cn(styles.digit, {
-            [styles.digitExit]: digit.isExiting,
-            [styles.digitEnter]: digit.isEntering,
+          className={cn(styles.inner, {
+            [styles.exiting]: digit.isExiting,
+            [styles.entering]: digit.isEntering,
           })}
         >
           {digit.value}

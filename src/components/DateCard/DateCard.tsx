@@ -1,9 +1,11 @@
 import { memo, useEffect, useState } from 'react';
 import { Card } from '../Card';
-import { msUntilLocalMidnight } from '../../shared/utils';
-
-const formatRU = (options: Intl.DateTimeFormatOptions, date: Date) =>
-  new Intl.DateTimeFormat('ru-RU', options).format(date);
+import {
+  msUntilNextLocalMidnight,
+  scheduleAlignedTick,
+} from '../../shared/scheduleAlignedTick';
+import { formatLocaleDate } from '../../shared/utils';
+import { CardHeader } from '../card-header/card-header';
 
 type DateCardOuterProps = Record<string, never>;
 
@@ -19,28 +21,21 @@ const dateCardPropsAreEqual = (
 const DateCardView = () => {
   const [date, setDate] = useState(() => new Date());
 
-  useEffect(() => {
-    let id: ReturnType<typeof setTimeout>;
+  useEffect(
+    () =>
+      scheduleAlignedTick(
+        () => setDate(new Date()),
+        msUntilNextLocalMidnight,
+      ),
+    [],
+  );
 
-    const arm = () => {
-      id = setTimeout(() => {
-        setDate(new Date());
-        arm();
-      }, msUntilLocalMidnight(new Date()));
-    };
-
-    arm();
-    return () => {
-      clearTimeout(id);
-    };
-  }, []);
-
-  const weekday = formatRU({ weekday: 'long' }, date);
-  const dayMonth = formatRU({ day: 'numeric', month: 'long' }, date);
+  const weekday = formatLocaleDate(date, { weekday: 'long' });
+  const dayAndMonth = formatLocaleDate(date, { day: 'numeric', month: 'long' });
 
   return (
-    <Card header={<span>{weekday}</span>}>
-      <p>{dayMonth}</p>
+    <Card header={<CardHeader>{weekday}</CardHeader>}>
+      <p className="content">{dayAndMonth}</p>
     </Card>
   );
 };
