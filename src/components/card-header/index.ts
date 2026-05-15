@@ -1,1 +1,1 @@
-export { Card, type CardProps } from './card-header';
+export { CardHeader, type CardHeaderProps } from './card-header';

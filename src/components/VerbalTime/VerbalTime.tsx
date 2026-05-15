@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { verbalPhraseByTimeKey } from '../../shared/constants';
-import { CardHeader } from '../card-header/card-header';
+import { CardHeader } from '../card-header';
 import {
   msUntilNextMinute,
   scheduleAlignedTick,

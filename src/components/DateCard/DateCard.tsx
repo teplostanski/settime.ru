@@ -5,7 +5,7 @@ import {
   scheduleAlignedTick,
 } from '../../shared/scheduleAlignedTick';
 import { formatLocaleDate } from '../../shared/utils';
-import { CardHeader } from '../card-header/card-header';
+import { CardHeader } from '../card-header';
 
 type DateCardOuterProps = Record<string, never>;
 
