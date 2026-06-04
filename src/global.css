@@ -21,7 +21,11 @@ html {
   min-height: 100dvh;
   background-color: var(--bg-primary);
   background-image:
-    linear-gradient(var(--bg-scrim), var(--bg-scrim)), url('/bg.jpg');
+    linear-gradient(var(--bg-scrim), var(--bg-scrim)),
+    image-set(
+      url('/bg-mobile.webp') type('image/webp'),
+      url('/bg-mobile.jpg') type('image/jpeg')
+    );
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -29,6 +33,23 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    background-image:
+      linear-gradient(var(--bg-scrim), var(--bg-scrim)),
+      image-set(
+        url('/bg-desktop.webp') type('image/webp'),
+        url('/bg-desktop.jpg') type('image/jpeg')
+      );
+  }
+}
+
+@media (prefers-reduced-data: reduce) {
+  :root {
+    background-image: none;
+  }
 }
 
 body {

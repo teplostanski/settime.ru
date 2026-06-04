@@ -12,7 +12,6 @@ export default defineConfig({
       },
     }),
     readableClassnames(),
-    /* Кэш статики (в т.ч. фон bg-*.jpg) через Service Worker — актуально для GitHub Pages без своих Cache-Control */
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
