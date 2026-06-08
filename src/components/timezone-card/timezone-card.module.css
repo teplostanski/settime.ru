@@ -1,0 +1,108 @@
+.selectRoot {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 24%);
+  outline-offset: 0.2rem;
+  border-radius: 0.35rem;
+}
+
+.triggerLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  overflow-wrap: break-word;
+}
+
+.triggerIcon {
+  flex: 0 0 auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 1.5px solid var(--fg-secondary);
+  border-bottom: 1.5px solid var(--fg-secondary);
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+  opacity: 0.72;
+}
+
+.trigger[aria-expanded='true'] .triggerIcon,
+.trigger[data-open] .triggerIcon {
+  transform: rotate(225deg);
+}
+
+.listbox {
+  z-index: 1000;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: var(--button-width, auto);
+  max-width: calc(100vw - 1rem);
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  overflow: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-color-primary);
+  border-radius: clamp(0.75rem, 0.35rem + 2cqi, 1rem);
+  background: rgb(22 21 26 / 92%);
+  box-shadow:
+    0 8px 28px rgb(0 0 0 / 28%),
+    inset 0 1px 0 rgb(255 255 255 / 6%);
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  outline: none;
+}
+
+.listbox::-webkit-scrollbar {
+  display: none;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .listbox {
+    background: rgb(22 21 26 / 80%);
+    backdrop-filter: blur(10px) saturate(1.05);
+  }
+}
+
+.option {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.55rem;
+  color: var(--fg-primary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.optionActive {
+  background: rgb(255 255 255 / 8%);
+}
+
+.optionSelected {
+  color: var(--fg-primary);
+  background: rgb(255 255 255 / 5%);
+}
+
+.optionSelected.optionActive {
+  background: rgb(255 255 255 / 12%);
+}

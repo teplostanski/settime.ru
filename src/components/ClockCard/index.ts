@@ -1,1 +1,0 @@
-export { ClockCard } from './ClockCard';

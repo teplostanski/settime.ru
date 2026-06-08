@@ -4,6 +4,8 @@
   line-height: 1.35;
   text-align: left;
   overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
   letter-spacing: 0.015em;
   color: var(--fg-secondary);
 }

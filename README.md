@@ -1,75 +1,66 @@
-# React + TypeScript + Vite
+# settime
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Точное время онлайн. Фронтенд [settime.ru](https://settime.ru): сверяет часы устройства с эталонным сервером времени по WebSocket.
 
-Currently, two official plugins are available:
+Backend: [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Возможности
 
-## React Compiler
+- синхронизация времени через WebSocket
+- отображение расхождения с системными часами
+- выбор часового пояса
+- словесное время по-русски
+- PWA
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Стек
 
-Note: This will impact Vite dev & build performances.
+React 19, TypeScript, Vite, Redux Toolkit, dayjs, Zod, WebSocket
 
-## Expanding the ESLint configuration
+## Запуск
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Для локальной разработки по умолчанию используется prod API (`wss://api.settime.ru`, `.env.development`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Для локального backend см. [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru):
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/teplostanski/api.settime.ru.git
+cd api.settime.ru
+npm install
+npm run dev
 ```
+
+## Переменные окружения
+
+| Файл               | `VITE_WS_URL`          |
+| ------------------ | ---------------------- |
+| `.env.development` | `wss://api.settime.ru` |
+| `.env.production`  | `wss://api.settime.ru` |
+| `.env.example`     | шаблон                 |
+
+Фоллбэк переменной `VITE_WS_URL` = `ws://localhost:8080` находится в `src/shared/config/time-server.ts`
+
+Для CI нужно указать `VITE_WS_URL=wss://api.settime.ru` в Settings -> Environments -> github-pages -> Environment variables.
+
+## Сборка
+
+```bash
+npm run build
+npm run preview
+```
+
+## Линт
+
+```bash
+npm run lint
+```
+
+## Связанные репозитории
+
+| Репозиторий                                                                              | Описание        |
+| ---------------------------------------------------------------------------------------- | --------------- |
+| [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru) | WebSocket + NTP |

@@ -1,0 +1,56 @@
+.container {
+  box-sizing: border-box;
+  grid-area: main;
+  width: 100%;
+  max-width: min(42rem, 100%);
+  min-width: 0;
+  justify-self: center;
+  container: app / inline-size;
+}
+
+.grid {
+  box-sizing: border-box;
+  display: grid;
+  min-width: 0;
+  gap: clamp(0.75rem, 0.5rem + 2vw, 1.5rem);
+
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas:
+    'clock clock clock clock clock clock'
+    'timezone timezone timezone timezone date date'
+    'year-ordinals year-ordinals unix unix unix unix';
+  grid-template-rows: auto auto auto;
+  align-items: stretch;
+}
+
+.clockWidget {
+  grid-area: clock;
+}
+
+.dateWidget {
+  grid-area: date;
+}
+
+.yearOrdinalsWidget {
+  grid-area: year-ordinals;
+}
+
+.unixTimestampWidget {
+  grid-area: unix;
+}
+
+.timezoneWidget {
+  grid-area: timezone;
+}
+
+@container app (max-width: 36rem) {
+  .grid {
+    grid-template-areas:
+      'clock clock'
+      'timezone timezone'
+      'date year-ordinals'
+      'unix unix';
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto;
+  }
+}
