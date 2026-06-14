@@ -16,7 +16,7 @@ const formatVerbalTime = (
 
 const VerbalTime = () => {
   const timeZone = useAppSelector(selectTimeZone);
-  const now = useSyncedNowMinute();
+  const now = useSyncedNowMinute(timeZone);
   const { hours, minutes } = getZonedTimeParts(now, timeZone);
   const phrase = formatVerbalTime(hours, minutes) ?? '';
 

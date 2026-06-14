@@ -15,7 +15,7 @@ type TimezoneCardProps = {
 const TimezoneCard = ({ className }: TimezoneCardProps) => {
   const dispatch = useAppDispatch();
   const timeZone = useAppSelector(selectTimeZone);
-  const now = useSyncedNowMinute();
+  const now = useSyncedNowMinute(timeZone);
   const options = useMemo(() => getTimezoneOptions(timeZone), [timeZone]);
   const offsetLabel = formatUtcOffset(timeZone, now);
 

@@ -26,6 +26,10 @@ const deriveSyncPhase = ({
     return SyncPhase.Initial;
   }
 
+  if (status === AsyncStatus.Loading) {
+    return SyncPhase.Syncing;
+  }
+
   if (error !== null) {
     return SyncPhase.Degraded;
   }

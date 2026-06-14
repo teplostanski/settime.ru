@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
+import { dayjs } from '../dayjs';
 import { getSyncedNow } from '../time/get-synced-now';
 import { useAppSelector } from '../../store/hooks';
 import { selectHasSyncedOnce, selectOffsetMs } from '../../store/features/time';
-import { getMsUntilNextMidnight } from '../time/get-ms-until-next-midnight';
+import {
+  getMsUntilNextMidnight,
+  getMsUntilNextMinute,
+  getMsUntilNextSecond,
+} from '../time/get-ms-until-next-boundary';
 
 /*
 TODO: Подумать об одном таймере вместо отдельных на каждый вызов хука
 */
-const useSyncedNow = (intervalMs: number): Date => {
+const useSyncedNowSecond = (timeZone: string): Date => {
   const offsetMs = useAppSelector(selectOffsetMs);
   const hasSyncedOnce = useAppSelector(selectHasSyncedOnce);
   const [now, setNow] = useState(() =>
@@ -15,21 +20,47 @@ const useSyncedNow = (intervalMs: number): Date => {
   );
 
   useEffect(() => {
-    const tick = () => setNow(getSyncedNow({ offsetMs, hasSyncedOnce }));
+    let timerId: number;
 
-    tick();
+    const schedule = () => {
+      const current = getSyncedNow({ offsetMs, hasSyncedOnce });
+      setNow(dayjs(current).tz(timeZone).startOf('second').toDate());
+      const delay = getMsUntilNextSecond(current, timeZone);
+      timerId = setTimeout(schedule, delay);
+    };
 
-    const intervalId = setInterval(tick, intervalMs);
+    schedule();
 
-    return () => clearInterval(intervalId);
-  }, [hasSyncedOnce, intervalMs, offsetMs]);
+    return () => clearTimeout(timerId);
+  }, [hasSyncedOnce, offsetMs, timeZone]);
 
   return now;
 };
 
-const useSyncedNowSecond = (): Date => useSyncedNow(1000);
+const useSyncedNowMinute = (timeZone: string): Date => {
+  const offsetMs = useAppSelector(selectOffsetMs);
+  const hasSyncedOnce = useAppSelector(selectHasSyncedOnce);
+  const [now, setNow] = useState(() =>
+    getSyncedNow({ offsetMs, hasSyncedOnce }),
+  );
 
-const useSyncedNowMinute = (): Date => useSyncedNow(60_000);
+  useEffect(() => {
+    let timerId: number;
+
+    const schedule = () => {
+      const current = getSyncedNow({ offsetMs, hasSyncedOnce });
+      setNow(dayjs(current).tz(timeZone).startOf('minute').toDate());
+      const delay = getMsUntilNextMinute(current, timeZone);
+      timerId = setTimeout(schedule, delay);
+    };
+
+    schedule();
+
+    return () => clearTimeout(timerId);
+  }, [hasSyncedOnce, offsetMs, timeZone]);
+
+  return now;
+};
 
 const useSyncedNowMidnight = (timeZone: string): Date => {
   const offsetMs = useAppSelector(selectOffsetMs);
@@ -43,7 +74,7 @@ const useSyncedNowMidnight = (timeZone: string): Date => {
 
     const schedule = () => {
       const current = getSyncedNow({ offsetMs, hasSyncedOnce });
-      setNow(current);
+      setNow(dayjs(current).tz(timeZone).startOf('day').toDate());
       const delay = getMsUntilNextMidnight(current, timeZone);
       timerId = setTimeout(schedule, delay);
     };

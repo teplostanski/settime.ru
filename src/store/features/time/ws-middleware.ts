@@ -20,11 +20,7 @@ const wsMiddleware: Middleware<object, RootState> = (store) => {
     ws?.close();
     ws = null;
 
-    const { hasSyncedOnce } = store.getState().time;
-
-    if (!hasSyncedOnce) {
-      store.dispatch(timeSyncStarted());
-    }
+    store.dispatch(timeSyncStarted());
 
     const socket = new WebSocket(WS_URL);
     ws = socket;

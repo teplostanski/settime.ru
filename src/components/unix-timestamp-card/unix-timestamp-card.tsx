@@ -1,4 +1,6 @@
 import { useSyncedNowSecond } from '../../shared/hooks/use-synced-now';
+import { useAppSelector } from '../../store/hooks';
+import { selectTimeZone } from '../../store/features/timezone';
 import { Card } from '../card';
 import { CardHeader } from '../card-header';
 
@@ -7,7 +9,8 @@ type UnixTimestampCardProps = {
 };
 
 const UnixTimestampCard = ({ className }: UnixTimestampCardProps) => {
-  const now = useSyncedNowSecond();
+  const timeZone = useAppSelector(selectTimeZone);
+  const now = useSyncedNowSecond(timeZone);
   const unixSeconds = Math.floor(now.getTime() / 1000);
 
   return (

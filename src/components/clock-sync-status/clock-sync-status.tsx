@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import {
   formatTimeOffset,
   getTimeOffsetCaption,
@@ -10,16 +11,33 @@ import {
   selectSyncPhase,
   selectTimeError,
 } from '../../store/features/time';
+import { deriveIndicatorVariant } from './derive-indicator-variant';
+import { IndicatorVariant } from './indicator-variant';
 import styles from './clock-sync-status.module.css';
+
+const indicatorClassName = {
+  [IndicatorVariant.Offline]: styles.indicatorOffline,
+  [IndicatorVariant.Synced]: styles.indicatorSynced,
+  [IndicatorVariant.Syncing]: styles.indicatorSyncing,
+} as const;
 
 const ClockSyncStatus = () => {
   const phase = useAppSelector(selectSyncPhase);
   const offsetMs = useAppSelector(selectOffsetMs);
   const error = useAppSelector(selectTimeError);
+  const indicatorVariant = deriveIndicatorVariant(phase);
+
+  const indicator = (
+    <span
+      className={cn(styles.indicator, indicatorClassName[indicatorVariant])}
+      aria-hidden="true"
+    />
+  );
 
   if (phase === SyncPhase.Failed) {
     return (
       <div className={styles.root}>
+        {indicator}
         <p className={styles.error} role="alert" aria-live="assertive">
           {error ?? DEFAULT_SYNC_ERROR_MESSAGE}
         </p>
@@ -30,20 +48,24 @@ const ClockSyncStatus = () => {
   if (phase === SyncPhase.Initial || phase === SyncPhase.Syncing) {
     return (
       <div className={styles.root}>
-        <p className={styles.loading} role="status" aria-live="polite">
-          <span className={styles.spinner} aria-hidden="true" />
-        </p>
+        {indicator}
+        <p className={styles.loading} role="status" aria-live="polite" />
       </div>
     );
   }
 
   if (offsetMs === null) {
-    return <div className={styles.root} />;
+    return (
+      <div className={styles.root}>
+        {indicator}
+      </div>
+    );
   }
 
   if (phase === SyncPhase.Degraded) {
     return (
       <div className={styles.root}>
+        {indicator}
         <p className={styles.warning} role="status" aria-live="polite">
           {error ?? DEFAULT_SYNC_ERROR_MESSAGE}
           {' · '}
@@ -55,6 +77,7 @@ const ClockSyncStatus = () => {
 
   return (
     <div className={styles.root}>
+      {indicator}
       <p className={styles.synced} aria-live="polite">
         {getTimeOffsetCaption(offsetMs)} {formatTimeOffset(offsetMs)}
       </p>

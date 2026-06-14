@@ -40,7 +40,7 @@ const SecondsDigits = ({ seconds }: SecondsDigitsProps) => (
 
 const DigitalTime = () => {
   const timeZone = useAppSelector(selectTimeZone);
-  const now = useSyncedNowSecond();
+  const now = useSyncedNowSecond(timeZone);
   const { hours, minutes, seconds } = getZonedTimeParts(now, timeZone);
 
   const hoursText = hours.toString().padStart(2, '0');
