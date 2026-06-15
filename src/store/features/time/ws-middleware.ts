@@ -1,5 +1,9 @@
 import type { Middleware } from '@reduxjs/toolkit';
 import { TIME_SERVER_WS_URL } from '../../../shared/config/time-server';
+import {
+  MS_PER_SECOND,
+  RETRY_AFTER_FAIL_MS,
+} from '../../../shared/time/time-constants';
 import { computeOffsetMs } from '../../../shared/time/compute-offset';
 import { parseTimeMessage } from '../../../shared/time/time-message';
 import type { RootState } from '../../store';
@@ -10,8 +14,7 @@ import {
 } from './time-slice';
 
 const WS_URL = TIME_SERVER_WS_URL;
-const RESYNC_INTERVAL_MS = 30 * 60 * 1000;
-const RETRY_AFTER_FAIL_MS = 1000;
+const RESYNC_INTERVAL_MS = 30 * 60 * MS_PER_SECOND;
 
 const wsMiddleware: Middleware<object, RootState> = (store) => {
   let ws: WebSocket | null = null;

@@ -1,3 +1,4 @@
+import { dayjs } from '../../shared/dayjs';
 import { useSyncedNowSecond } from '../../shared/hooks/use-synced-now';
 import { useAppSelector } from '../../store/hooks';
 import { selectTimeZone } from '../../store/features/timezone';
@@ -11,7 +12,7 @@ type UnixTimestampCardProps = {
 const UnixTimestampCard = ({ className }: UnixTimestampCardProps) => {
   const timeZone = useAppSelector(selectTimeZone);
   const now = useSyncedNowSecond(timeZone);
-  const unixSeconds = Math.floor(now.getTime() / 1000);
+  const unixSeconds = dayjs(now).unix();
 
   return (
     <Card className={className} header={<CardHeader>unix время</CardHeader>}>

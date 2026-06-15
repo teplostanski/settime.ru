@@ -4,6 +4,7 @@
 html {
   min-width: 0;
   width: 100%;
+  scrollbar-gutter: stable;
 }
 
 :root {

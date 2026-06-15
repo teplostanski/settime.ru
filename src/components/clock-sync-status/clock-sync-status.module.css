@@ -23,13 +23,13 @@
 .indicator {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: 0.4375rem;
-  height: 0.4375rem;
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 50%;
 }
 
 .indicatorSynced {
-  background-color: #fff;
+  background-color: var(--fg-primary);
 }
 
 .indicatorOffline {
@@ -37,7 +37,7 @@
 }
 
 .indicatorSyncing {
-  background-color: #fff;
+  background-color: var(--fg-primary);
   animation: indicator-pulse 1.6s ease-in-out infinite;
 }
 

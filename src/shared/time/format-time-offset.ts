@@ -1,3 +1,5 @@
+import { MS_PER_SECOND } from './time-constants';
+
 const SYNC_NOISE_THRESHOLD_MS = 300;
 
 const toUserOffsetMs = (offsetMs: number): number => -offsetMs;
@@ -13,7 +15,7 @@ const formatSignedOffset = (userOffsetMs: number): string => {
     return '';
   }
 
-  const seconds = Math.abs(userOffsetMs) / 1000;
+  const seconds = Math.abs(userOffsetMs) / MS_PER_SECOND;
   const formatted = Number.isInteger(seconds)
     ? String(seconds)
     : seconds.toFixed(1);

@@ -1,24 +1,15 @@
-import { verbalPhraseByTimeKey } from '../../shared/constants';
+import { dayjs } from '../../shared/dayjs';
+import { verbalPhraseByTimeKey } from '../../shared/verbal-phrase-by-time-key';
 import { CardHeader } from '../card-header';
 import { useSyncedNowMinute } from '../../shared/hooks/use-synced-now';
-import { getZonedTimeParts } from '../../shared/time/get-zoned-time-parts';
 import { useAppSelector } from '../../store/hooks';
 import { selectTimeZone } from '../../store/features/timezone';
-
-const formatVerbalTime = (
-  hours: number,
-  minutes: number,
-): string | undefined => {
-  const timeKey =
-    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` as keyof typeof verbalPhraseByTimeKey;
-  return verbalPhraseByTimeKey[timeKey];
-};
 
 const VerbalTime = () => {
   const timeZone = useAppSelector(selectTimeZone);
   const now = useSyncedNowMinute(timeZone);
-  const { hours, minutes } = getZonedTimeParts(now, timeZone);
-  const phrase = formatVerbalTime(hours, minutes) ?? '';
+  const timeKey = dayjs(now).tz(timeZone).format('HH:mm') as keyof typeof verbalPhraseByTimeKey;
+  const phrase = verbalPhraseByTimeKey[timeKey] ?? '';
 
   return <CardHeader>{phrase}</CardHeader>;
 };

@@ -1,7 +1,7 @@
+import { dayjs } from '../../shared/dayjs';
 import { DigitSlot } from '../digit-slot';
 import styles from './digital-time.module.css';
 import { useSyncedNowSecond } from '../../shared/hooks/use-synced-now';
-import { getZonedTimeParts } from '../../shared/time/get-zoned-time-parts';
 import { useAppSelector } from '../../store/hooks';
 import { selectTimeZone } from '../../store/features/timezone';
 
@@ -41,11 +41,10 @@ const SecondsDigits = ({ seconds }: SecondsDigitsProps) => (
 const DigitalTime = () => {
   const timeZone = useAppSelector(selectTimeZone);
   const now = useSyncedNowSecond(timeZone);
-  const { hours, minutes, seconds } = getZonedTimeParts(now, timeZone);
-
-  const hoursText = hours.toString().padStart(2, '0');
-  const minutesText = minutes.toString().padStart(2, '0');
-  const secondsText = seconds.toString().padStart(2, '0');
+  const [hoursText, minutesText, secondsText] = dayjs(now)
+    .tz(timeZone)
+    .format('HH:mm:ss')
+    .split(':');
 
   return (
     <div className={styles.wrapper}>

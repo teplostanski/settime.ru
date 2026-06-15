@@ -55,7 +55,9 @@
   box-sizing: border-box;
   width: max-content;
   min-width: var(--button-width, auto);
-  max-width: calc(100vw - 1rem);
+  max-width: min(100%, calc(100dvw - 1rem));
+  max-height: min(60dvh, 24rem);
+  --anchor-max-height: min(60dvh, 24rem);
   margin: 0;
   padding: 0.35rem;
   list-style: none;
