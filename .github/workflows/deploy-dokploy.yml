@@ -1,0 +1,20 @@
+name: Deploy to Dokploy (dev)
+
+on:
+  push:
+    branches: ['dev']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Trigger Dokploy Deployment
+        uses: qbix-tech/dokploy-deploy-action@v1
+        with:
+          dokploy_url: https://deploy.teplostanski.me
+          api_key: ${{ secrets.DOKPLOY_API_KEY }}
+          application_id: '9vdrbxXVF9xcxvlSiSsgs'
