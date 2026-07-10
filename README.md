@@ -1,6 +1,6 @@
 # settime
 
-Точное время онлайн. Фронтенд [settime.ru](https://settime.ru): сверяет часы устройства с эталонным сервером времени по WebSocket.
+Точное время онлайн. Фронтенд [settime.ru](https://settime.ru): сверяет часы устройства с эталонным временем по WebSocket.
 
 Backend: [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru).
 
@@ -66,3 +66,7 @@ npm run lint
 | Репозиторий                                                                              | Описание        |
 | ---------------------------------------------------------------------------------------- | --------------- |
 | [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru) | WebSocket + NTP |
+
+<br>
+
+[![Donate](https://img.shields.io/static/v1?label=donate&message=teplostanski.me&color=4F46E5)](https://donate.teplostanski.me)
