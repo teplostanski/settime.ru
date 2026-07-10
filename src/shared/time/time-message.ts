@@ -7,10 +7,15 @@ const timeMessageSchema = z.object({
 
 type TimeMessage = z.infer<typeof timeMessageSchema>;
 
+const ClientTimeMessage = {
+  Refresh: { type: 'refresh' },
+} as const;
+
 const parseTimeMessage = (data: unknown): TimeMessage | null => {
   const result = timeMessageSchema.safeParse(data);
 
   return result.success ? result.data : null;
 };
 
-export { parseTimeMessage };
+export { ClientTimeMessage, parseTimeMessage };
+export { type TimeMessage };
