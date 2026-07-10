@@ -2,7 +2,7 @@
 
 Точное время онлайн. Фронтенд [settime.ru](https://settime.ru): сверяет часы устройства с эталонным временем по WebSocket.
 
-Backend: [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru).
+API: [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru)
 
 ![Скриншот](./screen.webp)
 
@@ -25,9 +25,7 @@ npm install
 npm run dev
 ```
 
-Для локальной разработки по умолчанию используется prod API (`wss://api.settime.ru`, `.env.development`).
-
-Для локального backend см. [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru):
+По умолчанию приложение подключается к WebSocket API на `ws://localhost:8080/ws`. Для работы нужен backend из репозитория [api.settime.ru](https://github.com/teplostanski/api.settime.ru):
 
 ```bash
 git clone https://github.com/teplostanski/api.settime.ru.git
@@ -38,15 +36,11 @@ npm run dev
 
 ## Переменные окружения
 
-| Файл               | `VITE_WS_URL`          |
-| ------------------ | ---------------------- |
-| `.env.development` | `wss://api.settime.ru/ws` |
-| `.env.production`  | `wss://api.settime.ru/ws` |
-| `.env.example`     | шаблон                 |
+`VITE_WS_URL` задаёт адрес WebSocket API.
 
-Фоллбэк переменной `VITE_WS_URL` = `ws://localhost:8080` находится в `src/shared/config/time-server.ts`
+В режиме разработки используется `ws://localhost:8080/ws` из `src/shared/config/time-server.ts`. Другой адрес можно указать в `.env.development` (см. `.env.example`).
 
-Для CI нужно указать `VITE_WS_URL=wss://api.settime.ru/ws` в Settings -> Environments -> github-pages -> Environment variables.
+Для Github Pages нужно указать `VITE_WS_URL` в Settings -> Environments -> github-pages -> Environment variables.
 
 ## Сборка
 
