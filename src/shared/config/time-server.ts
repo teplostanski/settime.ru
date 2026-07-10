@@ -1,4 +1,4 @@
-const DEFAULT_WS_URL = 'ws://localhost:8080';
+const DEFAULT_WS_URL = 'ws://0.0.0.0:8080/ws';
 
 const TIME_SERVER_WS_URL =
   import.meta.env.VITE_WS_URL?.trim() || DEFAULT_WS_URL;

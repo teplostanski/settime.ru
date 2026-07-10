@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { AsyncStatus, type Status } from '../../../shared/async-status';
-import { DEFAULT_SYNC_ERROR_MESSAGE } from '../../../shared/time/sync-messages';
+import { SyncErrorMessage } from '../../../shared/time/sync-error-messages';
 
 type TimeState = {
   offsetMs: number | null;
@@ -35,7 +35,7 @@ const timeSlice = createSlice({
         state.status = AsyncStatus.Failed;
       }
 
-      state.error = action.payload ?? DEFAULT_SYNC_ERROR_MESSAGE;
+      state.error = action.payload ?? SyncErrorMessage.Default;
     },
   },
 });
