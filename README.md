@@ -4,6 +4,8 @@
 
 Backend: [github.com/teplostanski/api.settime.ru](https://github.com/teplostanski/api.settime.ru).
 
+![Скриншот](./screen.webp)
+
 ## Возможности
 
 - синхронизация времени через WebSocket
