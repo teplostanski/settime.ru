@@ -13,6 +13,7 @@ dist-ssr
 *.local
 
 # Local env overrides
+.env.development
 .env.local
 .env.production.local
 .vscode/*
