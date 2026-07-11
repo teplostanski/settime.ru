@@ -40,13 +40,13 @@ npm run dev
 
 | Файл               | `VITE_WS_URL`          |
 | ------------------ | ---------------------- |
-| `.env.development` | `wss://api.settime.ru` |
-| `.env.production`  | `wss://api.settime.ru` |
+| `.env.development` | `wss://api.settime.ru/ws` |
+| `.env.production`  | `wss://api.settime.ru/ws` |
 | `.env.example`     | шаблон                 |
 
 Фоллбэк переменной `VITE_WS_URL` = `ws://localhost:8080` находится в `src/shared/config/time-server.ts`
 
-Для CI нужно указать `VITE_WS_URL=wss://api.settime.ru` в Settings -> Environments -> github-pages -> Environment variables.
+Для CI нужно указать `VITE_WS_URL=wss://api.settime.ru/ws` в Settings -> Environments -> github-pages -> Environment variables.
 
 ## Сборка
 
