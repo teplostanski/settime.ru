@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { wsMiddleware } from './features/time';
+import { socketMiddleware } from './features/time';
 import { rootReducer } from './root-reducer';
 
 export const setupStore = () =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(wsMiddleware),
+      getDefaultMiddleware().concat(socketMiddleware),
   });
 
 type AppStore = ReturnType<typeof setupStore>;

@@ -4,7 +4,7 @@ import {
   formatTimeOffset,
   getTimeOffsetCaption,
 } from '../../shared/time/format-time-offset';
-import { DEFAULT_SYNC_ERROR_MESSAGE } from '../../shared/time/sync-messages';
+import { SyncErrorMessage } from '../../shared/time/sync-error-messages';
 import {
   selectOffsetMs,
   selectSyncPhase,
@@ -38,7 +38,7 @@ const ClockSyncStatus = () => {
     return (
       <div className={styles.root}>
         <p className={styles.error} role="alert" aria-live="assertive">
-          {error ?? DEFAULT_SYNC_ERROR_MESSAGE}
+          {error ?? SyncErrorMessage.Default}
         </p>
         {indicator}
       </div>
@@ -62,7 +62,7 @@ const ClockSyncStatus = () => {
     return (
       <div className={styles.root}>
         <p className={styles.warning} role="status" aria-live="polite">
-          {error ?? DEFAULT_SYNC_ERROR_MESSAGE}
+          {error ?? SyncErrorMessage.Default}
           {' · '}
           {getTimeOffsetCaption(offsetMs)} {formatTimeOffset(offsetMs)}
         </p>

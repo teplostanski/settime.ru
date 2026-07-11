@@ -11,4 +11,4 @@ export {
   selectTimeError,
   selectTimeStatus,
 } from './selectors';
-export { wsMiddleware } from './ws-middleware';
+export { socketMiddleware } from './socket-middleware';
